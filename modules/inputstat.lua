@@ -50,12 +50,17 @@ local function initData()
         if event:getKeyCode() == 56 and event:getFlags().shift then
             if (is_chinese()) then
                 hs.hid.led.set('caps', false)
-                hs.alert.closeSpecific(showUUID)
                 if reverse then
                     reverse = false
+                    if not hs.hid.capslock.get() then
+                        hs.alert.show("键盘英文 🆎", 0.5)
+                    end
                     macMenubar:setIcon(imgInputEn)
                 else
                     reverse = true
+                    if not hs.hid.capslock.get() then
+                        hs.alert.show("键盘中文 ㊥", 0.5)
+                    end
                     macMenubar:setIcon(imgInputCn)
                 end
             else
